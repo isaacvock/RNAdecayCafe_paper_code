@@ -8,23 +8,14 @@ library(data.table)
 library(dplyr)
 library(ggplot2)
 library(tidyr)
-library(devtools)
-load_all("C:/Users/isaac/Documents/Simon_Lab/EZbakR/")
 library(readr)
-library(arrow)
-library(corrplot)
 library(stringr)
-library(pheatmap)
 library(RColorBrewer)
 library(purrr)
 library(broom)
 library(intervals)
-library(msigdbr)
-library(msigdbdf)
-library(fgsea)
 library(ComplexHeatmap)
 library(circlize)
-library(patchwork)
 library(ggbreak)
 
 # Helper functions
@@ -670,6 +661,8 @@ ggsave(
 
 
 ##### Figure 2C right: R2 and slope distributions #####
+col_vals <- c(`FALSE` = "darkgray",
+              `TRUE`  = "darkorange")
 
 slope_full_len <- combined_tbl %>%
   dplyr::mutate(

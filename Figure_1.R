@@ -8,13 +8,8 @@ library(data.table)
 library(dplyr)
 library(ggplot2)
 library(tidyr)
-library(devtools)
-load_all("C:/Users/isaac/Documents/Simon_Lab/EZbakR/")
 library(readr)
-library(arrow)
-library(corrplot)
 library(stringr)
-library(pheatmap)
 library(RColorBrewer)
 library(ComplexHeatmap)
 library(circlize)
@@ -25,6 +20,38 @@ library(circlize)
 source(
   "C:/Users/isaac/Documents/Simon_Lab/kdeg_curation/Scripts/helper_functions.R"
 )
+
+
+
+
+##### Color palettes #####
+
+# Cell annotation
+cell_cols <- c(
+  "Bcell" = "#F2B5A0",
+  "H1ESC" = "#EAC3FC",
+  "HEK293" = "#242455",
+  "HeLa" = "#9E65AA",
+  "HepG2" = "#A0C2F2",
+  "K562" = "#F3EA15",
+  "LCL" = "#78F4AA",
+  "MCF7" = "#976F2A",
+  "RPE" = "#50F703",
+  "Calu3" = "#962255",
+  "CH22" = "#838A71",
+  "MDAMB" = "#551E0D",
+  "MOLM" = "#7C4292",
+  "MV411" = "#7BA56F",
+  "Nalm6" = "#663730",
+  "U2OS" = "#D22027",
+  "THP1" = "#0080FF",
+  "HEL" = "black",
+  "BC1" = "gray",
+  "BE2C" = "blue",
+  "MCC" = "magenta",
+  "OCI/AML-3" = "orange"
+)
+
 
 
 # Remake  plots with ComplexHeatmap --------------------------------------------
@@ -158,24 +185,6 @@ good_tbl <- tibble(
 good_cols <- c("TRUE" = "#d95f02", 
                "FALSE" = "darkgray")
 
-cell_cols <- c(
-  "Bcell" = "#F2B5A0",
-  "H1ESC" = "#EAC3FC",
-  "HEK293" = "#242455",
-  "HeLa" = "#9E65AA",
-  "HepG2" = "#A0C2F2",
-  "K562" = "#F3EA15",
-  "LCL" = "#78F4AA",
-  "MCF7" = "#976F2A",
-  "RPE" = "#50F703",
-  "Calu3" = "#962255",
-  "CH22" = "#838A71",
-  "MDAMB" = "#551E0D",
-  "MOLM" = "#7C4292",
-  "MV411" = "#7BA56F",
-  "Nalm6" = "#663730",
-  "U2OS" = "#D22027" 
-)
 
 
 row_ha <- rowAnnotation(
@@ -310,31 +319,6 @@ col_fun <- colorRamp2(
 )
 
 
-cell_cols <- c(
-  "Bcell" = "#F2B5A0",
-  "H1ESC" = "#EAC3FC",
-  "HEK293" = "#242455",
-  "HeLa" = "#9E65AA",
-  "HepG2" = "#A0C2F2",
-  "K562" = "#F3EA15",
-  "LCL" = "#78F4AA",
-  "MCF7" = "#976F2A",
-  "RPE" = "#50F703",
-  "Calu3" = "#962255",
-  "CH22" = "#838A71",
-  "MDAMB" = "#551E0D",
-  "MOLM" = "#7C4292",
-  "MV411" = "#7BA56F",
-  "Nalm6" = "#663730",
-  "U2OS" = "#D22027",
-  "THP1" = "#0080FF",
-  "HEL" = "black",
-  "BC1" = "gray",
-  "BE2C" = "blue",
-  "MCC" = "magenta",
-  "OCI/AML-3" = "orange"
-)
-
 
 annot_tbl <- pulse_chase_ests %>%
   dplyr::select(
@@ -395,8 +379,6 @@ draw(ht_pc)
 dev.off()
 
 ##### Pulse-label data #####
-# Bad correlations:
-# 1) SRR5806810 = 
 
 
 all_kinetics <- read_csv("C:/Users/isaac/Documents/Simon_Lab/kdeg_curation/Data/Analyses/All_NRseq_kdegs_refined.csv")
@@ -527,37 +509,6 @@ ht_pl <- ComplexHeatmap::Heatmap(abs(pl_corrmat),
 )
 
 
-ht_pl <- draw(ht_pl)
-ord_idx <- row_order(ht_pl)
-
-colnames(pl_corrmat)[ord_idx]
-
-batch1 <- colnames(pl_corrmat)[ord_idx][1:32]
-batch2 <- colnames(pl_corrmat)[ord_idx][33:ncol(pl_corrmat)]
-
-batch1
-
-pulse_label_ests <- pulse_label_ests %>%
-  dplyr::mutate(
-    batch = factor(ifelse(
-      sample %in% batch1,
-      "batch1",
-      "batch2"
-    ))
-  ) 
-
-# pulse_label_ests %>%
-#   dplyr::mutate(
-#     threePseq = dataset %in% total_rna_datasets
-#   ) %>%
-#   dplyr::ungroup() %>%
-#   dplyr::select(sample, batch, threePseq, tchase) %>%
-#   dplyr::distinct() %>%
-#   dplyr::count(batch, tchase)
-# 
-
-ht_pl
-
 pdf("C:/Users/isaac/Documents/Simon_Lab/kdeg_curation/Manuscript/Figures/Figure1_panels/NRseq_pulselabel_heatmap_annot.pdf",
     width  = 2.3,          
     height = 2.1,
@@ -566,7 +517,7 @@ draw(ht_pl)
 dev.off()
 
 
-### Get one with legened
+### Get one with legend
 
 row_ha <- rowAnnotation(
   cell = annot_tbl$cell,
@@ -605,7 +556,7 @@ pdf("C:/Users/isaac/Documents/Simon_Lab/kdeg_curation/Manuscript/Figures/Figure1
 draw(ht_pl)                  
 dev.off()
 
-##### RNAdegDB #####
+##### RNAdecayCafe #####
 
 RNAdegDB_complete <- read_csv("C:/Users/isaac/Documents/Simon_Lab/kdeg_curation/Data/RNAdegDB_OneTable_filtered_refined.csv")
 
@@ -673,7 +624,7 @@ label_times <- RNAdegDB_complete %>%
         .default = cell_line
       )
     ),
-    seqdepth_factor = factor(
+    seqdepth_factor = factor( # Nothing useful came from this one
       case_when(
         total_reads < 1000000 ~ "< 1 mil",
         total_reads < 10000000 ~ "[1, 10] mil",
@@ -683,35 +634,35 @@ label_times <- RNAdegDB_complete %>%
     )
   )
 
-# choose any colours you like for the annotation bar
+
+# Label time colors
 ann_cols <- c("< 2hr" = "deepskyblue", 
               "[2, 4]hr" = "darkgray",
               "> 4hr" = "darkred")
 
 
-# 120 alright
-seed <- 119
 
-set.seed(seed)
 row_ha <- rowAnnotation(
   label_time = label_times$label_factor,
   cell_line = label_times$cell_line,
-  col = list(label_time = ann_cols),
+  col = list(label_time = ann_cols,
+             cell_line = cell_cols),
   show_annotation_name = FALSE,
   show_legend = FALSE
 )
 
-set.seed(seed)
 row_ha_legend <- rowAnnotation(
   label_time = label_times$label_factor,
   cell_line = label_times$cell_line,
-  col = list(label_time = ann_cols),
+  col = list(label_time = ann_cols,
+             cell_line = cell_cols),
   show_annotation_name = FALSE,
   show_legend = TRUE
 )
 
 
 
+# With annotations
 ht_rdb_col <- ComplexHeatmap::Heatmap(abs(plf_corrmat),
                                       col               = col_fun,
                                       cluster_rows      = TRUE,
@@ -736,6 +687,7 @@ ht_rdb_col <- ComplexHeatmap::Heatmap(abs(plf_corrmat),
 ht_rdb_col
 
 
+# With annotations and legends
 ht_rdb_col_leg <- ComplexHeatmap::Heatmap(abs(plf_corrmat),
                                           col               = col_fun,
                                           cluster_rows      = TRUE,
@@ -757,37 +709,6 @@ ht_rdb_col_leg <- ComplexHeatmap::Heatmap(abs(plf_corrmat),
 )
 
 
-ht_rdb <- ComplexHeatmap::Heatmap(abs(plf_corrmat),
-                                  col               = col_fun,
-                                  cluster_rows      = TRUE,
-                                  cluster_columns   = TRUE,
-                                  show_row_names    = FALSE,
-                                  show_column_names = FALSE,
-                                  show_row_dend = FALSE,
-                                  show_column_dend = FALSE,
-                                  row_names_gp      = gpar(fontsize = 6),
-                                  column_names_gp   = gpar(fontsize = 6),
-                                  border            = FALSE,            # border around the whole heatmap
-                                  heatmap_legend_param = list(
-                                    title  = "|r|",
-                                    at     = seq(0, 1, by = 0.2),
-                                    labels = seq(0, 1, by = 0.2)
-                                  ),
-                                  show_heatmap_legend = FALSE
-)
-
-
-ht_rdb
-ht_rdb_col
-ht_rdb_col_leg
-
-pdf("C:/Users/isaac/Documents/Simon_Lab/kdeg_curation/Manuscript/Figures/Figure1_panels/RDB_heatmap.pdf",
-    width  = 2.2,          
-    height = 2.1,
-    useDingbats = FALSE)          
-draw(ht_rdb)                  
-dev.off()
-
 
 pdf("C:/Users/isaac/Documents/Simon_Lab/kdeg_curation/Manuscript/Figures/Figure1_panels/RDB_heatmap_annot.pdf",
     width  = 2.5,          
@@ -805,13 +726,14 @@ dev.off()
 
 
 
+##### Saluki database (high quality) vs. RNAdegDB ######
+### Need to run everything above this before running this section
 
+
+### Make combined matrix
 ht_rdb <- draw(ht_rdb)
 ord_idx <- row_order(ht_rdb)
 
-##### Saluki database (high quality) vs. RNAdegDB ######
-
-### Make combined matrix
 coln_saluki <- colnames(saluki_hls)
 ok_samples <- ok_samples[!grepl("^Simon", ok_samples) &
                            !grepl("^Shendure", ok_samples)]
@@ -857,37 +779,11 @@ new_id <- match(new_order, rownames(comp_corrmat))
 mat <- abs(comp_corrmat[new_id, new_id])
 
 
-## ---- colour scale ----
-# pheatmap used 11 colours and 12 break points (0‒1)
+## Color scale
 col_fun <- colorRamp2(
-  seq(0, 1, length.out = 11),           # 11 anchors
-  rev(brewer.pal(11, "RdYlBu"))         # same RdYlBu palette, reversed
+  seq(0, 1, length.out = 11),
+  rev(brewer.pal(11, "RdYlBu"))
 )
-
-# ## ---- annotations ----
-# # a single factor that is repeated for rows and for columns
-# src_fac <- factor(
-#   rep(c("RNAdegDB", "Agarwal et al."), times = c(ncol(plf_corrmat), length(ok_samples))),
-#   levels = c("RNAdegDB", "Agarwal et al.")
-# )
-# 
-# # choose any colours you like for the annotation bar
-# ann_cols <- c("RNAdegDB" = "#1b9e77", "Agarwal et al." = "#d95f02")
-# 
-# row_ha <- rowAnnotation(
-#   source = src_fac,
-#   col    = list(source = ann_cols),
-#   show_annotation_name = FALSE,
-#   show_legend = FALSE
-# )
-# 
-# top_ha <- HeatmapAnnotation(
-#   source = src_fac,
-#   col    = list(source = ann_cols),
-#   show_annotation_name = FALSE,
-#   show_legend = FALSE
-# )
-# 
 
 
 ##### Construct cell tibbles #####
@@ -915,7 +811,7 @@ annot_rdb <- RNAdegDB_complete %>%
   )
 
 
-# Sketchy b/c have to run top of scirpt first
+# Sketchy b/c have to run top of script first
 saluki_tbl <- tibble(
   sample = rownames(new_corrmat)[ord_idx_sal_nonrseq]
 ) %>%
@@ -966,7 +862,6 @@ row_ha <- rowAnnotation(
   show_legend = FALSE
 )
 
-## ---- heatmap ----
 ht <- Heatmap(
   mat,
   col               = col_fun,
@@ -987,7 +882,6 @@ ht <- Heatmap(
   show_heatmap_legend = FALSE
 )
 
-ht
 
 
 pdf("C:/Users/isaac/Documents/Simon_Lab/kdeg_curation/Manuscript/Figures/Figure1_panels/RDB_vs_Saluki_heatmap_annot.pdf",
@@ -998,7 +892,7 @@ draw(ht)
 dev.off()
 
 
-##### Make box plots of correlations
+##### Make box plots of correlations (1E) #####
 
 nr_nrow <- length(ord_idx)
 nonnr_nrow <- length(ok_samples)
