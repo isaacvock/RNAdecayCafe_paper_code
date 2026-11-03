@@ -38,7 +38,7 @@ path_to_helpers          <- "C:/Users/isaac/Main_Docs/Simon_Lab/RNAdecayCafe_pap
 # rather than RNAdegDB_OneTable_filtered_refined.csv, which has 32 rows corrupted by embedded null bytes.
 path_to_rnadecaycafe_rds <- "C:/Users/isaac/Main_Docs/Simon_Lab/kdeg_curation/Data/RNAdegDB_filtered_refined.rds"
 path_to_celltype_out     <- "C:/Users/isaac/Main_Docs/Simon_Lab/kdeg_curation/Data/Analyses/RDB_celltype_specificity.csv"
-figure_dir               <- "C:/Users/isaac/Main_Docs/Simon_Lab/kdeg_curation/Manuscript/Figures/Figure2_panels"
+figure_dir               <- "C:/Users/isaac/Main_Docs/Simon_Lab/kdeg_curation/Manuscript/Figures/Figure2_panels_v2"
 
 dir.create(figure_dir, recursive = TRUE, showWarnings = FALSE)
 

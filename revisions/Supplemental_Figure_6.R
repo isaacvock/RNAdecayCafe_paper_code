@@ -16,7 +16,7 @@ library(ggplot2)
 # File paths -------------------------------------------------------------------
 
 path_to_rnadecaycafe_rds <- "C:/Users/isaac/Main_Docs/Simon_Lab/kdeg_curation/Data/RNAdegDB_filtered_refined.rds"
-figure_dir               <- "C:/Users/isaac/Main_Docs/Simon_Lab/kdeg_curation/Manuscript/Figures/Supplemental_Panels"
+figure_dir               <- "C:/Users/isaac/Main_Docs/Simon_Lab/kdeg_curation/Manuscript/Figures/Supplemental_Panels_v2"
 
 dir.create(figure_dir, recursive = TRUE, showWarnings = FALSE)
 

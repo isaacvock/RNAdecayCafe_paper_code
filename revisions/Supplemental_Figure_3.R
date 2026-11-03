@@ -23,7 +23,7 @@ library(ggplot2)
 path_to_agarwal_data     <- "C:/Users/isaac/Main_Docs/Simon_Lab/kdeg_curation/Data/Saluki_data/processed_half_lives_TableS2.xlsx"
 path_to_all_nrseq        <- "C:/Users/isaac/Main_Docs/Simon_Lab/kdeg_curation/Data/Analyses/Revisions/All_NRseq_kdegs_refined.csv"
 path_to_rnadecaycafe_rds <- "C:/Users/isaac/Main_Docs/Simon_Lab/kdeg_curation/Data/RNAdegDB_filtered_refined.rds"
-figure_dir               <- "C:/Users/isaac/Main_Docs/Simon_Lab/kdeg_curation/Manuscript/Figures/Supplemental_Panels"
+figure_dir               <- "C:/Users/isaac/Main_Docs/Simon_Lab/kdeg_curation/Manuscript/Figures/Supplemental_Panels_v2"
 
 dir.create(figure_dir, recursive = TRUE, showWarnings = FALSE)
 
@@ -156,9 +156,9 @@ cor_tbl <- tibble(
     rep("Agarwal", times = length(unique(as.vector(new_corrmat)))),
     rep("PC", times = length(unique(as.vector(pc_corrmat)))),
     rep("PL", times = length(unique(as.vector(pl_corrmat)))),
-    rep("RNAdecayCafe", times = length(unique(as.vector(plf_corrmat))))
+    rep("RDC", times = length(unique(as.vector(plf_corrmat))))
   ),
-  levels = c("Agarwal", "PC", "PL", "RNAdecayCafe"))
+  levels = c("Agarwal", "PC", "PL", "RDC"))
 ) %>%
   dplyr::mutate(
     corrs = ifelse(

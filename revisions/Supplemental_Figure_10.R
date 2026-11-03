@@ -30,10 +30,10 @@ library(EZbakR)
 
 # File paths -------------------------------------------------------------------
 
-dataset_str       <- "Matsushima_etal_2018_adipocyte_and_brain"
-path_to_mouse_dir <- "C:/Users/isaac/Yale University/Simon Lab (General) - RNAdegDB_curation/fastq2EZbakR_output/Mouse_data/"
-path_to_mouse_gtf <- "C:/Users/isaac/Yale University/Simon Lab – RNA - Documents/IWV/Genomes/Mmus/Mus_musculus.GRCm39.112_filtered.gtf"
-figure_dir        <- "C:/Users/isaac/Main_Docs/Simon_Lab/kdeg_curation/Manuscript/Figures/Revision_Supplemental_Panels"
+dataset_str       <- "Mouse_SLAMIT"
+path_to_mouse_dir <- "C:/Users/isaac/Main_Docs/Simon_Lab/kdeg_curation/Data/"
+path_to_mouse_gtf <- "C:/Users/isaac/Main_Docs/Kundaje_Lab/Data/Mmus/Mus_musculus.GRCm39.115.gtf.gz"
+figure_dir        <- "C:/Users/isaac/Main_Docs/Simon_Lab/kdeg_curation/Manuscript/Figures/Revision_Supplemental_Panels_v2"
 
 dir.create(figure_dir, recursive = TRUE, showWarnings = FALSE)
 
@@ -55,7 +55,7 @@ metadf <- tibble(
 )
 
 ### Run settings
-use_arrow <- TRUE
+use_arrow <- FALSE
 dropout_correct <- FALSE
 dropout_normalize <- TRUE
 normalize_across_tl <- FALSE

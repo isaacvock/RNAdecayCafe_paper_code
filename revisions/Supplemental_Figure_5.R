@@ -27,7 +27,7 @@ path_to_avg_kdegs   <- "C:/Users/isaac/Main_Docs/Simon_Lab/kdeg_curation/Data/RN
 path_to_saluki_xlsx <- "C:/Users/isaac/Main_Docs/Simon_Lab/kdeg_curation/Data/Analyses/Revisions/Saluki_kdegs.xlsx"
 mane_gtf_path       <- "C:/Users/isaac/Main_Docs/Kundaje_Lab/Data/MANE.GRCh38.v1.4.refseq_genomic.gtf.gz"
 path_to_seq_and_kd  <- "C:/Users/isaac/Main_Docs/Simon_Lab/kdeg_curation/Data/Analyses/Revisions/MANE_sequence_and_kdegs.csv"
-figure_dir          <- "C:/Users/isaac/Main_Docs/Simon_Lab/kdeg_curation/Manuscript/Figures/Revision_Supplemental_Panels"
+figure_dir          <- "C:/Users/isaac/Main_Docs/Simon_Lab/kdeg_curation/Manuscript/Figures/Revision_Supplemental_Panels_v2"
 
 dir.create(figure_dir, recursive = TRUE, showWarnings = FALSE)
 

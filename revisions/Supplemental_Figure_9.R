@@ -30,7 +30,7 @@ path_to_fig2_celltype_data <- "C:/Users/isaac/Main_Docs/Simon_Lab/kdeg_curation/
 path_to_seq_and_kd         <- "C:/Users/isaac/Main_Docs/Simon_Lab/kdeg_curation/Data/Analyses/Revisions/MANE_sequence_and_kdegs.csv"
 path_to_hits_fasta         <- "C:/Users/isaac/Main_Docs/Simon_Lab/kdeg_curation/Data/Analyses/Revisions/MANE_threepUTRs_posttxn_hits.fasta"
 path_to_bg_fasta           <- "C:/Users/isaac/Main_Docs/Simon_Lab/kdeg_curation/Data/Analyses/Revisions/MANE_threepUTRs_background_DE.fasta"
-figure_dir                 <- "C:/Users/isaac/Main_Docs/Simon_Lab/kdeg_curation/Manuscript/Figures/Revision_Supplemental_Panels"
+figure_dir                 <- "C:/Users/isaac/Main_Docs/Simon_Lab/kdeg_curation/Manuscript/Figures/Revision_Supplemental_Panels_v2/"
 
 dir.create(figure_dir, recursive = TRUE, showWarnings = FALSE)
 

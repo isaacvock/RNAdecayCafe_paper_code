@@ -25,7 +25,7 @@ library(EZbakR)
 # File paths -------------------------------------------------------------------
 
 path_to_all_nrseq <- "C:/Users/isaac/Main_Docs/Simon_Lab/kdeg_curation/Data/Analyses/Revisions/All_NRseq_kdegs_refined.csv"
-figure_dir        <- "C:/Users/isaac/Main_Docs/Simon_Lab/kdeg_curation/Manuscript/Figures/Revision_Supplemental_Panels"
+figure_dir        <- "C:/Users/isaac/Main_Docs/Simon_Lab/kdeg_curation/Manuscript/Figures/Revision_Supplemental_Panels_v2"
 
 dir.create(figure_dir, recursive = TRUE, showWarnings = FALSE)
 
