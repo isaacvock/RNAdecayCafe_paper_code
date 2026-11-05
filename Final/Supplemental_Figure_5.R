@@ -17,6 +17,7 @@ library(ggplot2)
 library(glmnet)
 library(rtracklayer)
 library(GenomicFeatures)
+library(txdbmaker)
 library(BSgenome.Hsapiens.UCSC.hg38)
 library(Biostrings)
 

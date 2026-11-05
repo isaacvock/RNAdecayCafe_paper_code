@@ -21,17 +21,16 @@ library(dplyr)
 library(readr)
 library(tidyr)
 library(ggplot2)
-library(arrow)
 library(rtracklayer)
 library(GenomicFeatures)
+library(txdbmaker)
 library(GenomicRanges)
 library(EZbakR)
 
 
 # File paths -------------------------------------------------------------------
 
-dataset_str       <- "Mouse_SLAMIT"
-path_to_mouse_dir <- "C:/Users/isaac/Main_Docs/Simon_Lab/kdeg_curation/Data/"
+path_to_mouse_cB <- "C:/Users/isaac/Main_Docs/Simon_Lab/kdeg_curation/Data/Mouse_SLAMIT/cB/cB.csv.gz"
 path_to_mouse_gtf <- "C:/Users/isaac/Main_Docs/Kundaje_Lab/Data/Mmus/Mus_musculus.GRCm39.115.gtf.gz"
 figure_dir        <- "C:/Users/isaac/Main_Docs/Simon_Lab/kdeg_curation/Manuscript/Figures/Revision_Supplemental_Panels_v2"
 
@@ -55,19 +54,13 @@ metadf <- tibble(
 )
 
 ### Run settings
-use_arrow <- FALSE
 dropout_correct <- FALSE
 dropout_normalize <- TRUE
 normalize_across_tl <- FALSE
 
 ### Analysis
-if (use_arrow) {
-  cB <- arrow::open_dataset(paste0(path_to_mouse_dir, dataset_str, "/arrow_dataset"))
-  ezbdo <- EZbakRArrowData(cB, metadf)
-} else {
-  cB <- fread(paste0(path_to_mouse_dir, dataset_str, "/cB/cB.csv.gz"))
-  ezbdo <- EZbakRData(cB, metadf)
-}
+cB <- fread(path_to_mouse_cB)
+ezbdo <- EZbakRData(cB, metadf)
 
 ezbdo <- EstimateFractions(
   ezbdo,

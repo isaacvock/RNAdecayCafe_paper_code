@@ -29,6 +29,7 @@ library(intervals)
 library(ComplexHeatmap)
 library(circlize)
 library(ggbreak)
+library(EZbakR)
 
 
 # File paths -------------------------------------------------------------------
